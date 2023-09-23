@@ -1,0 +1,76 @@
+Support Vector  Machines-1
+Assignment Questions 
+Assignment 
+Q1. What is the mathematical formula for a linear SVM? 
+Objective Function (Maximize Margin):
+The goal is to maximize the margin, which is the distance between the hyperplane and the nearest data point from either class.
+Min ⁡w,b1/2∥�∥2
+min
+w,b∥w∥2
+Subject to the constraints:
+yi(w⋅xi+b≥1for �=1,2,…,n
+y
+i
+​
+(w⋅x
+i
+​
++b)≥1for i=1,2,…,n
+Here,
+w is the weight vector,
+b is the bias term, and
+xrepresents the features for the
+i-th data point.
+
+Q2. What is the objective function of a linear SVM? 
+The goal is to maximize the margin, which is the distance between the hyperplane and the nearest data point from either class. Mathematically, this is expressed as minimizing the inverse of the margin (which is proportional to the square of the norm of the weight vector), subject to the constraint that data points are correctly classified with a margin of at least 1
+Q3. What is the kernel trick in SVM? 
+The kernel trick is a fundamental concept in Support Vector Machines (SVMs) that allows SVMs to efficiently operate in a higher-dimensional space without explicitly computing the coordinates of the data in that space. It's a mathematical technique that enables SVMs to handle non-linearly separable data by implicitly mapping the input data into a higher-dimensional space.
+In a traditional linear SVM, the decision boundary is a hyperplane that separates the classes in the original feature space. However, many real-world datasets are not linearly separable, so a linear hyperplane may not be adequate for proper classification.
+The kernel trick involves using a kernel function to compute the dot product (inner product) of feature vectors in a higher-dimensional space, without explicitly mapping the data into that space. This allows SVMs to effectively work with non-linearly separable data.
+Q4. What is the role of support vectors in SVM Explain with example  
+In a Support Vector Machine (SVM), support vectors play a critical role in determining the decision boundary and maximizing the margin between classes. Support vectors are the data points from the training set that lie closest to the decision boundary, influencing its position and orientation.
+Role of Support Vectors:
+Defining the Decision Boundary: Support vectors are the data points that define the location and orientation of the decision boundary (hyperplane). The decision boundary is positioned in such a way that it maximizes the margin, which is the distance between the hyperplane and the nearest support vectors
+Maximizing the Margin: The optimal hyperplane, determined by the support vectors, maximizes the margin between the classes. This ensures that the classes are well-separated and helps improve the generalization ability of the SVM.
+Q5. Illustrate with examples and graphs of Hyperplane, Marginal plane, Soft margin and Hard margin in  SVM? 
+Q6. SVM Implementation through Iris dataset. 
+~ Load the iris dataset from the scikit-learn library and split it into a training set and a testing setl ~ Train a linear SVM classifier on the training set and predict the labels for the testing setl ~ Compute the accuracy of the model on the testing setl 
+~ Plot the decision boundaries of the trained model using two of the featuresl 
+~ Try different values of the regularisation parameter C and see how it affects the performance of  the model. 
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_iris
+iris=load_iris()
+data=iris.data
+features=iris.feature_names
+df=pd.DataFrame(data,columns=features)
+target=iris.target
+df['target']=target
+x=df.iloc[:,:-1]
+y=target
+from sklearn.model_selection import train_test_split
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.33,random_state=42)
+from sklearn.svm import SVC
+clf=SVC()
+clf.fit(x_train,y_train)
+y_pred=clf.predict(x_test)
+from sklearn.metrics import accuracy_score,classification_report
+accuracy=accuracy_score(y_pred,y_test)
+report=classification_report(y_pred,y_test)
+print(accuracy)
+print(report)
+c=[0.1,1,100]
+from sklearn.model_selection import GridSearchCV
+svc=SVC()
+c_para=GridSearchCV(svc,param_grid={'C': c})
+c_para.fit(x_train,y_train)
+y_pred1=c_para.predict(x_test)
+y_pred1
+c_para.best_params_
+accuracy=accuracy_score(y_pred1,y_test)
+accuracy
+Bonus task: Implement a linear SVM classifier from scratch using Python and compare its  performance with the scikit-learn implementation. 
+Note:  Create your assignment in Jupyter notebook and upload it to GitHub & share that github repository  link through your dashboard. Make sure the repository is public.
+Data Science Masters 
